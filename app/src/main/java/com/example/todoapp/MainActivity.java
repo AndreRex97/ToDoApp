@@ -12,5 +12,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String Andre = "Andre Testing";
+        String Jarel = "Jarel Testing 1 2 3";
     }
 }
