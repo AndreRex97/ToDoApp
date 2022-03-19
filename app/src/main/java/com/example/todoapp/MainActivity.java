@@ -13,5 +13,6 @@ public class MainActivity extends AppCompatActivity {
 
         String Andre = "Andre Testing";
         String Jarel = "Jarel Testing 1 2 3";
+        String Hayden = "Hayden Testing 1 2 3";
     }
 }
