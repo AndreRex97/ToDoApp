@@ -1,18 +1,20 @@
 package com.example.todoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView tasksRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String Andre = "Andre Testing";
-        String Jarel = "Jarel Testing 1 2 3";
-        String Hayden = "Hayden Testing 1 2 3";
+        tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
