@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -8,17 +9,20 @@
         android:id="@+id/newTaskText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="0dp"
         android:background="@null"
         android:hint="This is a new task"
+        android:minHeight="48dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
         android:id="@+id/newTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/newTaskText"
+        android:layout_below="@+id/newTaskText"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="0dp"
         android:background="@android:color/transparent"
         android:text="Save"
         android:textAllCaps="false"
@@ -36,5 +40,11 @@
         android:background="@android:color/transparent"
         android:text="Add Image"
         android:textColor="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>

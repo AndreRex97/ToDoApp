@@ -1,18 +1,27 @@
 package com.example.todoapp;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.todoapp.Model.ToDoModel;
@@ -24,8 +33,9 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
 
     private EditText newTaskText;
-    private Button newTaskSaveButton;
+    private Button newTaskSaveButton, newTaskImageButton;
     private DatabaseHandler db;
+    ImageView imageView;
 
     public static AddNewTask newInstance(){
         return new AddNewTask();
@@ -49,6 +59,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         newTaskText = getView().findViewById(R.id.newTaskText);
         newTaskSaveButton = getView().findViewById(R.id.newTaskButton);
+        newTaskImageButton = getView().findViewById(R.id.cameraButton);
+        imageView = getView().findViewById(R.id.imageView);
 
         db = new DatabaseHandler(getActivity());
         db.openDatabase();
@@ -61,6 +73,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
             newTaskText.setText(task);
             if(task.length()>0){
                 newTaskSaveButton.setTextColor(ContextCompat.getColor(getContext(), R.color.purple_700));
+                newTaskImageButton.setTextColor(ContextCompat.getColor(getContext(), R.color.purple_700));
             }
         }
         newTaskText.addTextChangedListener(new TextWatcher() {
@@ -100,6 +113,15 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 dismiss();
             }
         });
+
+        newTaskImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Open Camera
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
     }
 
     @Override
@@ -107,6 +129,17 @@ public class AddNewTask extends BottomSheetDialogFragment {
         Activity activity = getActivity();
         if (activity instanceof DialogCloseListener){
             ((DialogCloseListener)activity).handleDialogClose(dialog);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            //Get Capture Image
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            //Set Capture Image to ImageView
+            imageView.setImageBitmap(captureImage);
         }
     }
 }
