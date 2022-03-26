@@ -1,8 +1,11 @@
 package com.example.todoapp.Model;
 
+import android.graphics.Bitmap;
+
 public class ToDoModel {
     private int id, status;
     private String task;
+    private byte[] image;
 
     public int getId() {
         return id;
@@ -27,4 +30,8 @@ public class ToDoModel {
     public void setTask(String task) {
         this.task = task;
     }
+
+    public byte[] getImage() {return image;};
+
+    public void setImage(byte[] image){this.image = image;};
 }

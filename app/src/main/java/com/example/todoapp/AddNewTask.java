@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.Utils.DatabaseHandler;
+import com.example.todoapp.Utils.DbBitmapUtility;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class AddNewTask extends BottomSheetDialogFragment {
@@ -35,7 +36,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
     private EditText newTaskText;
     private Button newTaskSaveButton, newTaskImageButton;
     private DatabaseHandler db;
-    ImageView imageView;
+    private Bitmap captureImage;
+    private ImageView imageView;
 
     public static AddNewTask newInstance(){
         return new AddNewTask();
@@ -71,6 +73,19 @@ public class AddNewTask extends BottomSheetDialogFragment {
             isUpdate = true;
             String task = bundle.getString("task");
             newTaskText.setText(task);
+            byte[] imageReceive = bundle.getByteArray("image");
+            Log.i(TAG, "check byte array" + imageReceive);
+            Bitmap imageTaskReceive = DbBitmapUtility.getImage(imageReceive);
+            if (imageTaskReceive != null){
+                Log.i(TAG, "check imageTaskReceive" + imageTaskReceive);
+                imageView.setImageBitmap(imageTaskReceive);
+                newTaskImageButton.setText("Change Image");
+            } else {
+                newTaskImageButton.setText("Add Image");
+            }
+
+            newTaskSaveButton.setText("Update");
+
             if(task.length()>0){
                 newTaskSaveButton.setTextColor(ContextCompat.getColor(getContext(), R.color.purple_700));
                 newTaskImageButton.setTextColor(ContextCompat.getColor(getContext(), R.color.purple_700));
@@ -101,13 +116,19 @@ public class AddNewTask extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 String text = newTaskText.getText().toString();
+                byte[] image = new byte[0];
+                if (captureImage != null){
+                    image = DbBitmapUtility.getBytes(captureImage);
+                }
+
                 if(finalIsUpdate){
-                    db.updateTask(bundle.getInt("id"), text);
+                    db.updateTask(bundle.getInt("id"), text, image);
                 }
                 else {
                     ToDoModel task = new ToDoModel();
                     task.setTask(text);
                     task.setStatus(0);
+                    task.setImage(image);
                     db.insertTask(task);
                 }
                 dismiss();
@@ -137,7 +158,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
             //Get Capture Image
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            captureImage = (Bitmap) data.getExtras().get("data");
             //Set Capture Image to ImageView
             imageView.setImageBitmap(captureImage);
         }
