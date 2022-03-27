@@ -30,6 +30,20 @@
         android:textSize="16sp" />
 
     <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cameraButton"
+        android:layout_alignEnd="@+id/cameraButton"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@android:color/transparent"
+        android:text="Exit"
+        android:textAllCaps="false"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp" />
+
+    <Button
         android:id="@+id/cameraButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

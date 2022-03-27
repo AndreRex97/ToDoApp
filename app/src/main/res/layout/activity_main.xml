@@ -14,6 +14,7 @@
         android:layout_marginTop="16dp"
         android:text="Today, 20 Mar 2022"
         android:textAllCaps="true"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,8 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_create_24"
-        tools:layout_editor_absoluteX="271dp"
-        tools:layout_editor_absoluteY="244dp" />
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
@@ -46,6 +46,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDate"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonTutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onClickTutorialButton"
+        android:text="Tutorial"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
