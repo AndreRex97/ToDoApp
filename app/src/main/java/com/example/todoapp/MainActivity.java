@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -88,20 +89,6 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
             }
         });
 
-        /*
-        ToDoModel task = new ToDoModel();
-        task.setTask("Test task");
-        task.setStatus(0);
-        task.setId(1);
-
-        taskList.add(task);
-        taskList.add(task);
-        taskList.add(task);
-        taskList.add(task);
-        taskList.add(task);
-
-        tasksAdapter.setTasks(taskList);
-        */
     }
 
     @Override
@@ -110,5 +97,10 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
         Collections.reverse(taskList);
         tasksAdapter.setTasks(taskList);
         tasksAdapter.notifyDataSetChanged();
+    }
+
+    public void onClickTutorialButton(View view) {
+        Intent i = new Intent(this, TutorialPage.class);
+        startActivity(i);
     }
 }

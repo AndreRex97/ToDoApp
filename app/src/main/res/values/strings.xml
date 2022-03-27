@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">ToDoApp</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="addTask1">1. Press the pencil Button on the bottom right corner</string>
+    <string name="addTaskTitle">Add Task</string>
+    <string name="addTask2">2. Type the task</string>
+    <string name="addTask3">3. To add the image in the task, press add image</string>
+    <string name="addTask4">4. Press save to add the task to the list</string>
+    <string name="deleteTaskTitle">Delete Task</string>
+    <string name="deleteTask2">2. Press confirm when the dialog pop up</string>
+    <string name="editTaskTitle">Edit Task</string>
+    <string name="editTask1">1. Swipe the task to the left</string>
+    <string name="deleteTask1">1. Swipe the task to the right</string>
+    <string name="editTask2">2. Edit the task or update the image</string>
+    <string name="editTask3">3. Press Update</string>
+    <string name="back">Back</string>
 </resources>
