@@ -58,14 +58,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             }
         });
         Bitmap imageTask = DbBitmapUtility.getImage(image);
-        Log.i("onBindViewHolder", "task is " + item.getTask());
-        Log.i("onBindViewHolder", "imageTask " + imageTask);
-        Log.i("onBindViewHolder", "imageView " + holder.imageView.getLayoutParams().height);
+        holder.imageView.setImageBitmap(imageTask);
+        //Increase Image size
         if (imageTask != null){
-            holder.imageView.setImageBitmap(imageTask);
-            //Increase Image size
             holder.imageView.getLayoutParams().width = 700;
             holder.imageView.getLayoutParams().height = 700;
+        } else {
+            holder.imageView.getLayoutParams().width = 0;
+            holder.imageView.getLayoutParams().height = 0;
         }
     }
 
