@@ -64,6 +64,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
         newTaskImageButton = getView().findViewById(R.id.cameraButton);
         newTaskExitButton = getView().findViewById(R.id.exitButton);
         imageView = getView().findViewById(R.id.imageView);
+        captureImage = null;
 
         db = new DatabaseHandler(getActivity());
         db.openDatabase();
@@ -128,7 +129,9 @@ public class AddNewTask extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 String text = newTaskText.getText().toString();
                 byte[] image = new byte[0];
+                Log.d(TAG, "captureImage: " + captureImage);
                 if (captureImage != null){
+                    Log.d(TAG, "captureImage is not null");
                     image = DbBitmapUtility.getBytes(captureImage);
                 }
 
@@ -179,7 +182,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
             captureImage = (Bitmap) data.getExtras().get("data");
             //Set Capture Image to ImageView
             imageView.setImageBitmap(captureImage);
-            newTaskImageButton.setText("UPDATE");
+            newTaskImageButton.setText("Update Image");
         }
     }
 }
