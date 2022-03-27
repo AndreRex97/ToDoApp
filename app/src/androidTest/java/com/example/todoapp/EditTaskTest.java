@@ -1,4 +1,5 @@
 package com.example.todoapp;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -41,11 +42,11 @@ import static org.hamcrest.core.IsNot.not;
 
 import android.os.SystemClock;
 import android.view.View;
-@LargeTest
-public class DeleteTaskTest {
+
+public class EditTaskTest {
+
     private String taskName;
     private String taskDescription;
-
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
@@ -55,19 +56,25 @@ public class DeleteTaskTest {
         taskDescription = "Test Task Description";
     }
 
-
     @Test
-    public void delete_task() throws InterruptedException {
+    public void edit_task() throws InterruptedException {
         //Swipe left to delete
         onView(withId(R.id.tasksRecyclerView)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, new GeneralSwipeAction(
-                        Swipe.SLOW, GeneralLocation.BOTTOM_RIGHT, GeneralLocation.BOTTOM_LEFT,
+                        Swipe.SLOW, GeneralLocation.BOTTOM_LEFT, GeneralLocation.BOTTOM_RIGHT,
                         Press.FINGER)));
+        SystemClock.sleep(2000);
+        onView(withId(R.id.newTaskText)).perform(replaceText(taskName),closeSoftKeyboard());
 
-        //Click on confirm button to delete
-        onView(withText("CONFIRM"))
-       .inRoot(isDialog()) // <---
-                .check(matches(isDisplayed()))
-                .perform(click());
+        onView(withId(R.id.newTaskButton)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.tasksRecyclerView))
+                // scrollTo will fail the test if no item matches.
+                .perform(RecyclerViewActions.scrollTo(
+                        hasDescendant(withText(taskName))
+                ));
+
+        SystemClock.sleep(5000);
+        //onView(withId(R.id.newTaskButton)).perform(click());
     }
 }
