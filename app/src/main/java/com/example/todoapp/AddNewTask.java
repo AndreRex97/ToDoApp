@@ -179,6 +179,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
             captureImage = (Bitmap) data.getExtras().get("data");
             //Set Capture Image to ImageView
             imageView.setImageBitmap(captureImage);
+            newTaskImageButton.setText("UPDATE");
         }
     }
 }
