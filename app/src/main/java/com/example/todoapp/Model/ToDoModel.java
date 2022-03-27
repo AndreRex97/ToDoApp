@@ -6,6 +6,7 @@ public class ToDoModel {
     private int id, status;
     private String task;
     private byte[] image;
+    private String date;
 
     public int getId() {
         return id;
@@ -34,4 +35,12 @@ public class ToDoModel {
     public byte[] getImage() {return image;};
 
     public void setImage(byte[] image){this.image = image;};
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

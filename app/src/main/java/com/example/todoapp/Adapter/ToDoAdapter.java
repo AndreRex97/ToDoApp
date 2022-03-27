@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,6 +60,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         });
         Bitmap imageTask = DbBitmapUtility.getImage(image);
         holder.imageView.setImageBitmap(imageTask);
+        holder.textViewDate.setText(item.getDate());
         //Increase Image size
         if (imageTask != null){
             holder.imageView.getLayoutParams().width = 700;
@@ -99,6 +101,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         bundle.putInt("id", item.getId());
         bundle.putString("task", item.getTask());
         bundle.putByteArray("image", item.getImage());
+        bundle.putString("date", item.getDate());
         AddNewTask fragment = new AddNewTask();
         fragment.setArguments(bundle);
         fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
@@ -107,11 +110,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox task;
         ImageView imageView;
+        TextView textViewDate;
 
         ViewHolder(View view) {
             super(view);
             task = view.findViewById(R.id.todoCheckBox);
             imageView = view.findViewById(R.id.imageView);
+            textViewDate = view.findViewById(R.id.textViewDate);
         }
     }
 }

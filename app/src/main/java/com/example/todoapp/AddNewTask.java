@@ -2,6 +2,8 @@ package com.example.todoapp;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,8 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -29,6 +33,8 @@ import com.example.todoapp.Utils.DatabaseHandler;
 import com.example.todoapp.Utils.DbBitmapUtility;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.Calendar;
+
 public class AddNewTask extends BottomSheetDialogFragment {
 
     public static final String TAG = "ActionBottomDialog";
@@ -38,6 +44,10 @@ public class AddNewTask extends BottomSheetDialogFragment {
     private DatabaseHandler db;
     private Bitmap captureImage;
     private ImageView imageView;
+    private TextView textViewDate;
+
+    private DatePickerDialog datePickerDialog;
+    private Button dateButton;
 
     public static AddNewTask newInstance(){
         return new AddNewTask();
@@ -47,6 +57,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
+
     }
 
     @Override
@@ -64,7 +75,12 @@ public class AddNewTask extends BottomSheetDialogFragment {
         newTaskImageButton = getView().findViewById(R.id.cameraButton);
         newTaskExitButton = getView().findViewById(R.id.exitButton);
         imageView = getView().findViewById(R.id.imageView);
+        textViewDate = getView().findViewById(R.id.textViewDate);
+
         captureImage = null;
+
+        initDatePicker();
+        dateButton = getView().findViewById(R.id.datePickerButton);
 
         db = new DatabaseHandler(getActivity());
         db.openDatabase();
@@ -79,6 +95,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
             isUpdate = true;
             String task = bundle.getString("task");
             newTaskText.setText(task);
+            String date = bundle.getString("date");
+            textViewDate.setText(date);
             byte[] imageReceive = bundle.getByteArray("image");
             Bitmap imageTaskReceive = DbBitmapUtility.getImage(imageReceive);
             if (imageTaskReceive != null){
@@ -128,21 +146,24 @@ public class AddNewTask extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 String text = newTaskText.getText().toString();
+                String date = textViewDate.getText().toString();
                 byte[] image = new byte[0];
-                Log.d(TAG, "captureImage: " + captureImage);
+
                 if (captureImage != null){
-                    Log.d(TAG, "captureImage is not null");
                     image = DbBitmapUtility.getBytes(captureImage);
                 }
 
                 if(finalIsUpdate){
-                    db.updateTask(bundle.getInt("id"), text, image);
+                    db.updateTask(bundle.getInt("id"), text, image, date);
                 }
                 else {
                     ToDoModel task = new ToDoModel();
+                    Log.d(TAG, "text: " + text);
                     task.setTask(text);
                     task.setStatus(0);
                     task.setImage(image);
+                    task.setDate(date);
+                    Log.d(TAG, "Task: " + task.getTask());
                     db.insertTask(task);
                 }
                 dismiss();
@@ -162,6 +183,13 @@ public class AddNewTask extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
+            }
+        });
+
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show();
             }
         });
     }
@@ -185,4 +213,64 @@ public class AddNewTask extends BottomSheetDialogFragment {
             newTaskImageButton.setText("Update Image");
         }
     }
+
+    private void initDatePicker()
+    {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+                month = month + 1;
+                String date = makeDateString(day, month, year);
+                textViewDate.setText("Date: " + date);
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+
+        datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
+    }
+
+    private String makeDateString(int day, int month, int year)
+    {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month)
+    {
+        if(month == 1)
+            return "JAN";
+        if(month == 2)
+            return "FEB";
+        if(month == 3)
+            return "MAR";
+        if(month == 4)
+            return "APR";
+        if(month == 5)
+            return "MAY";
+        if(month == 6)
+            return "JUN";
+        if(month == 7)
+            return "JUL";
+        if(month == 8)
+            return "AUG";
+        if(month == 9)
+            return "SEP";
+        if(month == 10)
+            return "OCT";
+        if(month == 11)
+            return "NOV";
+        if(month == 12)
+            return "DEC";
+
+        //default should never happen
+        return "JAN";
+    }
+
 }
