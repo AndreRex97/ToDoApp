@@ -63,6 +63,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         Log.i("onBindViewHolder", "imageView " + holder.imageView.getLayoutParams().height);
         if (imageTask != null){
             holder.imageView.setImageBitmap(imageTask);
+            //Increase Image size
             holder.imageView.getLayoutParams().width = 700;
             holder.imageView.getLayoutParams().height = 700;
         }
