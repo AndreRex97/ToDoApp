@@ -34,7 +34,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
 
     private EditText newTaskText;
-    private Button newTaskSaveButton, newTaskImageButton;
+    private Button newTaskSaveButton, newTaskImageButton, newTaskExitButton;
     private DatabaseHandler db;
     private Bitmap captureImage;
     private ImageView imageView;
@@ -62,10 +62,15 @@ public class AddNewTask extends BottomSheetDialogFragment {
         newTaskText = getView().findViewById(R.id.newTaskText);
         newTaskSaveButton = getView().findViewById(R.id.newTaskButton);
         newTaskImageButton = getView().findViewById(R.id.cameraButton);
+        newTaskExitButton = getView().findViewById(R.id.exitButton);
         imageView = getView().findViewById(R.id.imageView);
 
         db = new DatabaseHandler(getActivity());
         db.openDatabase();
+
+        newTaskSaveButton.setTextColor(Color.BLACK);
+        newTaskImageButton.setTextColor(Color.BLACK);
+        newTaskExitButton.setTextColor(Color.BLACK);
 
         boolean isUpdate = false;
         final Bundle bundle = getArguments();
@@ -74,10 +79,10 @@ public class AddNewTask extends BottomSheetDialogFragment {
             String task = bundle.getString("task");
             newTaskText.setText(task);
             byte[] imageReceive = bundle.getByteArray("image");
-            Log.i(TAG, "check byte array" + imageReceive);
             Bitmap imageTaskReceive = DbBitmapUtility.getImage(imageReceive);
             if (imageTaskReceive != null){
                 Log.i(TAG, "check imageTaskReceive" + imageTaskReceive);
+                captureImage = imageTaskReceive;
                 imageView.setImageBitmap(imageTaskReceive);
                 newTaskImageButton.setText("Change Image");
             } else {
@@ -86,11 +91,14 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
             newTaskSaveButton.setText("Update");
 
-            if(task.length()>0){
-                newTaskSaveButton.setTextColor(ContextCompat.getColor(getContext(), R.color.purple_700));
-                newTaskImageButton.setTextColor(ContextCompat.getColor(getContext(), R.color.purple_700));
-            }
+            newTaskSaveButton.setEnabled(true);
+            newTaskSaveButton.setTextColor(Color.BLACK);
+        } else {
+            newTaskSaveButton.setEnabled(false);
+            newTaskSaveButton.setTextColor(Color.GRAY);
         }
+
+
         newTaskText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -102,6 +110,9 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 if(charSequence.toString().equals("")){
                     newTaskSaveButton.setEnabled(false);
                     newTaskSaveButton.setTextColor(Color.GRAY);
+                } else {
+                    newTaskSaveButton.setEnabled(true);
+                    newTaskSaveButton.setTextColor(Color.BLACK);
                 }
             }
 
@@ -141,6 +152,13 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 //Open Camera
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
+            }
+        });
+
+        newTaskExitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
             }
         });
     }
