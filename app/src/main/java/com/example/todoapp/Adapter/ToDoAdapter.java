@@ -3,7 +3,9 @@ package com.example.todoapp.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +59,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         });
         Bitmap imageTask = DbBitmapUtility.getImage(image);
         holder.imageView.setImageBitmap(imageTask);
+        //Increase Image size
+        if (imageTask != null){
+            holder.imageView.getLayoutParams().width = 700;
+            holder.imageView.getLayoutParams().height = 700;
+        } else {
+            holder.imageView.getLayoutParams().width = 0;
+            holder.imageView.getLayoutParams().height = 0;
+        }
     }
 
     private boolean toBoolean(int n) {
