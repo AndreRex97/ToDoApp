@@ -12,35 +12,37 @@
         android:layout_below="@+id/imageView"
         android:layout_marginTop="0dp"
         android:background="@null"
-        android:hint="This is a new task"
+        android:hint="@string/this_is_a_new_task"
         android:minHeight="48dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:ignore="TextContrastCheck"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/newTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newTaskText"
+        android:layout_below="@+id/textViewDate"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
         android:background="@android:color/transparent"
-        android:text="Save"
+        android:text="@string/save"
         android:textAllCaps="false"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="#757575"
         android:textSize="16sp" />
 
     <Button
         android:id="@+id/exitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cameraButton"
+        android:layout_below="@+id/datePickerButton"
         android:layout_alignEnd="@+id/cameraButton"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:background="@android:color/transparent"
-        android:text="Exit"
+        android:text="@string/exit"
         android:textAllCaps="false"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="#757575"
         android:textSize="16sp" />
 
     <Button
@@ -52,13 +54,40 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:background="@android:color/transparent"
-        android:text="Add Image"
-        android:textColor="@android:color/darker_gray" />
+        android:text="@string/add_image"
+        android:textColor="#757575" />
+
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cameraButton"
+        android:layout_alignEnd="@+id/cameraButton"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@android:color/transparent"
+        android:text="@string/date"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="ToDoImage"
+        tools:ignore="ImageContrastCheck"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newTaskText"
+        android:layout_alignStart="@+id/newTaskText"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:textSize="16sp" />
 
 </RelativeLayout>

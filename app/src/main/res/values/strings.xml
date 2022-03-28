@@ -14,4 +14,9 @@
     <string name="editTask2">2. Edit the task or update the image</string>
     <string name="editTask3">3. Press Update</string>
     <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="exit">Exit</string>
+    <string name="add_image">Add Image</string>
+    <string name="date">Date</string>
+    <string name="this_is_a_new_task">This is a new task</string>
 </resources>
