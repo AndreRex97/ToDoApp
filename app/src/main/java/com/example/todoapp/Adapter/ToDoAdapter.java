@@ -61,10 +61,15 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         Bitmap imageTask = DbBitmapUtility.getImage(image);
         holder.imageView.setImageBitmap(imageTask);
         holder.textViewDate.setText(item.getDate());
+        if (item.getDate().isEmpty()){
+            holder.textViewDate.setTextSize(0);
+        } else {
+            holder.textViewDate.setTextSize(20);
+        }
         //Increase Image size
         if (imageTask != null){
-            holder.imageView.getLayoutParams().width = 700;
-            holder.imageView.getLayoutParams().height = 700;
+            holder.imageView.getLayoutParams().width = 600;
+            holder.imageView.getLayoutParams().height = 600;
         } else {
             holder.imageView.getLayoutParams().width = 0;
             holder.imageView.getLayoutParams().height = 0;
