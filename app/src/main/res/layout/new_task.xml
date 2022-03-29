@@ -16,7 +16,7 @@
         android:minHeight="48dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:ignore="TextContrastCheck"
-        android:autofillHints="" />
+        />
 
     <Button
         android:id="@+id/newTaskButton"
