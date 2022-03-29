@@ -11,12 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
         android:layout_marginTop="0dp"
+        android:autofillHints=""
         android:background="@null"
         android:hint="@string/this_is_a_new_task"
         android:minHeight="48dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:ignore="TextContrastCheck"
-        android:autofillHints="" />
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/newTaskButton"

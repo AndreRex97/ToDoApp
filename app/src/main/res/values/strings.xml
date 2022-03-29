@@ -17,6 +17,6 @@
     <string name="save">Save</string>
     <string name="exit">Exit</string>
     <string name="add_image">Add Image</string>
-    <string name="date">Date</string>
-    <string name="this_is_a_new_task">This is a new task</string>
+    <string name="date">Set a Due Date</string>
+    <string name="this_is_a_new_task">What is your next task?</string>
 </resources>
