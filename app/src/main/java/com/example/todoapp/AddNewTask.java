@@ -212,11 +212,21 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
-            //Get Capture Image
-            captureImage = (Bitmap) data.getExtras().get("data");
-            //Set Capture Image to ImageView
-            imageView.setImageBitmap(captureImage);
-            newTaskImageButton.setText("Update Image");
+
+            Log.d("Camera Test", String.valueOf(data));
+            Log.d("Camera Test", String.valueOf(captureImage));
+
+            if(data != null){
+                //Get Capture Image
+                captureImage = (Bitmap) data.getExtras().get("data");
+                //Set Capture Image to ImageView
+                imageView.setImageBitmap(captureImage);
+                newTaskImageButton.setText("Update Image");
+            } else if (data == null & captureImage != null){
+                //Set Capture Image to ImageView
+                imageView.setImageBitmap(captureImage);
+                newTaskImageButton.setText("Update Image");
+            }
         }
     }
 
