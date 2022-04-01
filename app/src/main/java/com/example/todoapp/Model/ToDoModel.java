@@ -7,6 +7,7 @@ public class ToDoModel {
     private String task;
     private byte[] image;
     private String date;
+    private String location;
 
     public int getId() {
         return id;
@@ -42,5 +43,13 @@ public class ToDoModel {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

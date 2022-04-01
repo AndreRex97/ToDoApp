@@ -39,12 +39,12 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
     public static final String TAG = "ActionBottomDialog";
 
-    private EditText newTaskText;
+    private EditText newTaskText, newTaskLocation;
     private Button newTaskSaveButton, newTaskImageButton, newTaskExitButton;
     private DatabaseHandler db;
     private Bitmap captureImage;
     private ImageView imageView;
-    private TextView textViewDate;
+    private TextView textViewDate, textViewLocation;
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
@@ -76,6 +76,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
         newTaskExitButton = getView().findViewById(R.id.exitButton);
         imageView = getView().findViewById(R.id.imageView);
         textViewDate = getView().findViewById(R.id.textViewDate);
+        newTaskLocation = getView().findViewById(R.id.newTaskLocation);
+        textViewLocation = getView().findViewById(R.id.textViewLocation);
 
         captureImage = null;
 
@@ -97,6 +99,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
             newTaskText.setText(task);
             String date = bundle.getString("date");
             textViewDate.setText(date);
+            String location = bundle.getString("location");
+            newTaskLocation.setText(location);
             byte[] imageReceive = bundle.getByteArray("image");
             Bitmap imageTaskReceive = DbBitmapUtility.getImage(imageReceive);
             if (imageTaskReceive != null){
@@ -147,6 +151,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 String text = newTaskText.getText().toString();
                 String date = textViewDate.getText().toString();
+                String location = newTaskLocation.getText().toString();
                 byte[] image = new byte[0];
 
                 if (captureImage != null){
@@ -154,7 +159,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 }
 
                 if(finalIsUpdate){
-                    db.updateTask(bundle.getInt("id"), text, image, date);
+                    db.updateTask(bundle.getInt("id"), text, image, date, location);
                 }
                 else {
                     ToDoModel task = new ToDoModel();
@@ -163,6 +168,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
                     task.setStatus(0);
                     task.setImage(image);
                     task.setDate(date);
+                    task.setLocation(location);
                     Log.d(TAG, "Task: " + task.getTask());
                     db.insertTask(task);
                 }
@@ -206,11 +212,21 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
-            //Get Capture Image
-            captureImage = (Bitmap) data.getExtras().get("data");
-            //Set Capture Image to ImageView
-            imageView.setImageBitmap(captureImage);
-            newTaskImageButton.setText("Update Image");
+
+            Log.d("Camera Test", String.valueOf(data));
+            Log.d("Camera Test", String.valueOf(captureImage));
+
+            if(data != null){
+                //Get Capture Image
+                captureImage = (Bitmap) data.getExtras().get("data");
+                //Set Capture Image to ImageView
+                imageView.setImageBitmap(captureImage);
+                newTaskImageButton.setText("Update Image");
+            } else if (data == null & captureImage != null){
+                //Set Capture Image to ImageView
+                imageView.setImageBitmap(captureImage);
+                newTaskImageButton.setText("Update Image");
+            }
         }
     }
 

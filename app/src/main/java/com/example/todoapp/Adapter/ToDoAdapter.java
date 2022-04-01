@@ -61,10 +61,23 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         Bitmap imageTask = DbBitmapUtility.getImage(image);
         holder.imageView.setImageBitmap(imageTask);
         holder.textViewDate.setText(item.getDate());
+        holder.textViewLocation.setText("Location: " + item.getLocation());
+        if (item.getDate().isEmpty()){
+            holder.textViewDate.setTextSize(0);
+        } else {
+            holder.textViewDate.setTextSize(20);
+        }
+
+        if (item.getLocation().isEmpty()){
+            holder.textViewLocation.setTextSize(0);
+        } else {
+            holder.textViewLocation.setTextSize(16);
+        }
+
         //Increase Image size
         if (imageTask != null){
-            holder.imageView.getLayoutParams().width = 700;
-            holder.imageView.getLayoutParams().height = 700;
+            holder.imageView.getLayoutParams().width = 600;
+            holder.imageView.getLayoutParams().height = 600;
         } else {
             holder.imageView.getLayoutParams().width = 0;
             holder.imageView.getLayoutParams().height = 0;
@@ -102,6 +115,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         bundle.putString("task", item.getTask());
         bundle.putByteArray("image", item.getImage());
         bundle.putString("date", item.getDate());
+        bundle.putString("location", item.getLocation());
         AddNewTask fragment = new AddNewTask();
         fragment.setArguments(bundle);
         fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
@@ -110,13 +124,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox task;
         ImageView imageView;
-        TextView textViewDate;
+        TextView textViewDate, textViewLocation;
 
         ViewHolder(View view) {
             super(view);
             task = view.findViewById(R.id.todoCheckBox);
             imageView = view.findViewById(R.id.imageView);
             textViewDate = view.findViewById(R.id.textViewDate);
+            textViewLocation = view.findViewById(R.id.textViewLocation);
         }
     }
 }

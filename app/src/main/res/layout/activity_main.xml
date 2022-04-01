@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:text="Today, 20 Mar 2022"
         android:textAllCaps="true"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

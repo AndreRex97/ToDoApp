@@ -18,6 +18,22 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:ignore="TextContrastCheck" />
 
+    <EditText
+        android:id="@+id/newTaskLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newTaskText"
+        android:layout_alignStart="@+id/newTaskText"
+        android:layout_alignEnd="@+id/newTaskText"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@null"
+        android:hint="Location"
+        android:minHeight="48dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:ignore="TextContrastCheck" />
+
     <Button
         android:id="@+id/newTaskButton"
         android:layout_width="wrap_content"
@@ -84,7 +100,7 @@
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newTaskText"
+        android:layout_below="@+id/newTaskLocation"
         android:layout_alignStart="@+id/newTaskText"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
