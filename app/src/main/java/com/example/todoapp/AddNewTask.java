@@ -239,7 +239,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
             {
                 month = month + 1;
                 String date = makeDateString(day, month, year);
-                textViewDate.setText("Date: " + date);
+                textViewDate.setText("Due Date: " + date);
             }
         };
 
@@ -255,7 +255,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
     private String makeDateString(int day, int month, int year)
     {
-        return day + " " + getMonthFormat(month) + " " + year;
+        return day + " " + getMonthFormat(month) + " " +  year;
     }
 
     private String getMonthFormat(int month)
